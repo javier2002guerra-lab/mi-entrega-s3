@@ -114,3 +114,51 @@ En este contexto:
 - `Portal MiCita` puede capturar solicitudes, pero no redefine la fuente oficial del dato clinico-administrativo.
 - Los eventos como `appointment.created` deben publicarse con contrato versionado y validado.
 - Cualquier cambio en el flujo de citas debe coordinarse entre TI, Seguridad y el dueno del proceso.
+
+## 7. Riesgos y postura objetivo
+
+Para complementar el gobierno de TI, se propone una revision resumida del riesgo actual versus el estado objetivo, usando como referencia las funciones `Govern`, `Identify`, `Protect`, `Detect`, `Respond` y `Recover`.
+
+### 7.1 Riesgos principales del caso
+
+- **Accesos privilegiados sin suficiente control**: riesgo de uso indebido de cuentas administrativas o cuentas de servicio.
+- **Cambios en integraciones sin trazabilidad completa**: riesgo de interrupciones entre `Portal MiCita`, `ERP SaludCore` y consumidores.
+- **Backups no probados**: riesgo de no poder restaurar agenda, facturacion o datos administrativos en un incidente.
+- **Observabilidad limitada en eventos**: riesgo de no detectar a tiempo fallos en publicaciones o consumos.
+- **Dependencia de terceros / SaaS**: riesgo por incumplimiento de SLA, incidentes o fallas de soporte externo.
+
+### 7.2 Controles priorizados
+
+- **Govern**: responsables definidos, aceptacion de riesgo y registro de decisiones criticas.
+- **Identify**: inventario de sistemas, dependencias, datos criticos y proveedores.
+- **Protect**: MFA, RBAC, segregacion de funciones y cifrado de respaldos.
+- **Detect**: logs centralizados, alertas sobre integraciones y monitoreo basico de disponibilidad.
+- **Respond**: procedimiento minimo para contencion, escalamiento y comunicacion.
+- **Recover**: pruebas de restauracion, respaldo validado y criterios de continuidad.
+
+### 7.3 Mini plan de respuesta a incidentes
+
+1. **Contener**: aislar el servicio o integracion afectada.
+2. **Erradicar**: corregir la causa, revocar accesos comprometidos o revertir cambios.
+3. **Recuperar**: restaurar servicio y validar integridad de datos.
+4. **Aprender**: documentar lecciones y ajustar controles.
+
+## 8. Metricas sugeridas
+
+Se propone un set minimo de metricas que conecte operacion, integracion y mejora continua.
+
+### 8.1 Metricas DORA
+
+- **Frecuencia de despliegue**: que tan seguido se liberan cambios a servicios e integraciones.
+- **Lead Time for Change**: tiempo desde que se aprueba un cambio hasta que esta operando.
+
+### 8.2 Metricas operativas
+
+- **SLO de disponibilidad**: porcentaje de tiempo en que `Portal MiCita`, `ERP SaludCore` e integraciones clave estan disponibles.
+- **Tasa de backups exitosos**: porcentaje de respaldos completados y verificados correctamente.
+
+### 8.3 Uso practico en la clinica
+
+- Si baja la disponibilidad, se revisan incidentes operativos y dependencias.
+- Si aumenta el lead time, se revisa el proceso de cambios y aprobaciones.
+- Si falla un backup o una restauracion, se escala como riesgo operativo prioritario.
